@@ -140,7 +140,7 @@ Fig 2. Señal EMG Original
 
 Nota: Se asume que previamente se ha definido un fragmento llamado fragmento_emg (puede ser un segmento específico de la señal).
 
-4.1 Filtro Pasa-Altas y Pasa-Bajas
+5.1 Filtro Pasa-Altas y Pasa-Bajas
 
         # Aplicar filtro pasa-altas (elimina ruido de baja frecuencia)
         b, a = butter_filter(lowcut, highcut, fs, filter_type="highpass")
@@ -156,7 +156,17 @@ Nota: Se asume que previamente se ha definido un fragmento llamado fragmento_emg
 
 Fig 3. Filtrado pasa_bajas y pasa_altas
 
-4.2 Graficación de las Señales Filtradas
+En este laboratorio, se definió una frecuencia de muestreo de 1000 Hz. De acuerdo con el teorema de Nyquist, la frecuencia máxima que puede capturarse sin aliasing es la mitad de la frecuencia de muestreo (en este caso, 500 Hz). Por ello, cualquier frecuencia por encima de 500 Hz no se representará correctamente en la señal digitalizada.
+
+Para filtrar la señal EMG se ha seleccionado un rango de 20 Hz a 450 Hz:
+
+20 Hz (pasa-altas): Elimina componentes de muy baja frecuencia o ruido de alta amplitud y baja frecuencia (por ejemplo, fluctuaciones de línea base).
+
+450 Hz (pasa-bajas): Atenúa ruido de muy alta frecuencia, evitando acercarse demasiado a la frecuencia de Nyquist (500 Hz).
+
+Este pasa-banda (20–450 Hz) abarca las frecuencias de interés en la mayoría de las señales EMG, ya que la mayor parte de la energía electromiográfica se encuentra por debajo de 500 Hz, con picos importantes en torno a 50–150 Hz, dependiendo del músculo y el tipo de contracción.
+
+5.2 Graficación de las Señales Filtradas
 
         plt.figure(figsize=(15, 6))
         
